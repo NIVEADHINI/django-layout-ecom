@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Form - My Shop</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+
+    .order-container {
+      background: white;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 15px;
+      transition: border 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #e91e63;
+      outline: none;
+    }
+
+    .pay-btn {
+      background: #e91e63;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .pay-btn:hover {
+      background: #d81b60;
+    }
+
+    footer {
+      text-align: center;
+      background: #222;
+      color: white;
+      padding: 15px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>💎 Jewelry Order Form</header>
+
+  <div class="order-container">
+    <h2>Complete Your Order</h2>
+    <form action="{% url 'process_payment' %}" method="post">
+      {% csrf_token %}
+      
+      <label>Product</label>
+      <input type="text" name="product_name" value="{{ request.GET.product_name }}" readonly>
+
+      <label>Price (₹)</label>
+      <input type="text" name="price" value="{{ request.GET.price }}" readonly>
+
+      <label>Your Name</label>
+      <input type="text" name="customer_name" required>
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Phone Number</label>
+      <input type="text" name="phone" pattern="[0-9]{10}" maxlength="10" required>
+
+      <label>Address</label>
+      <textarea name="address" rows="3" required></textarea>
+
+      <button type="submit" class="pay-btn">Proceed to Payment</button>
+    </form>
+  </div>
+
+  <footer>© 2025 My Shop. All rights reserved.</footer>
+</body>
+</html>

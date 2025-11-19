@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Shop | Cart</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+    }
+
+    header {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background: #444;
+      padding: 12px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .cart-container {
+      margin-top: 100px;
+      background: white;
+      display: inline-block;
+      padding: 40px 60px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+      font-size: 28px;
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #444;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    a.button:hover {
+      background-color: #ffd700;
+      color: #000;
+    }
+
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 100px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>🛍️ My Shop</header>
+
+  <nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'handcraft' %}">Handcrafted Jewelry</a>
+    <a href="{% url 'gift' %}">Gifts & Accessories</a>
+    <a href="{% url 'clothing' %}">Clothing</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="{% url 'login' %}">Login</a>
+  </nav>
+
+  <div class="cart-container">
+    <h1>🛒 Your Cart is Empty</h1>
+    <a href="{% url 'home' %}" class="button">Continue Shopping</a>
+  </div>
+
+  <footer>
+    © 2025 My Shop. All rights reserved.
+  </footer>
+</body>
+</html>

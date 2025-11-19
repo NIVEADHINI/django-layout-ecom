@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}My Shop{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+
+  <!-- Header -->
+  <header style="background:#222; color:#fff; padding:20px; text-align:center; font-size:28px;">
+    <img src="{% static 'images/logo.png' %}" alt="My Shop Logo" style="height:40px; vertical-align:middle; margin-right:10px;">
+    🛍️ My Shop
+  </header>
+
+  <!-- Navigation -->
+  <nav style="display:flex; justify-content:center; flex-wrap:wrap; gap:30px; background:#444; padding:12px;">
+    <a href="{% url 'home' %}" style="color:white; text-decoration:none;">Home</a>
+    <a href="{% url 'handcraft' %}" style="color:white; text-decoration:none;">Handcrafted Jewelry</a>
+    <a href="{% url 'gift' %}" style="color:white; text-decoration:none;">Gifts</a>
+    <a href="{% url 'clothing' %}" style="color:white; text-decoration:none;">Clothing</a>
+    <a href="{% url 'contact' %}" style="color:white; text-decoration:none;">Contact</a>
+    <a href="{% url 'cart' %}" style="color:white; text-decoration:none;">Cart</a>
+
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}" style="color:white; text-decoration:none;">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}" style="color:white; text-decoration:none;">Login</a>
+      <a href="{% url 'signup' %}" style="color:white; text-decoration:none;">Signup</a>
+    {% endif %}
+  </nav>
+
+  <!-- Main Content -->
+  <main style="padding:40px;">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer style="background:#222; color:#fff; text-align:center; padding:15px;">
+    © 2025 My Shop. All rights reserved.
+  </footer>
+
+</body>
+</html>

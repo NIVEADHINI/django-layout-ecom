@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Shop | Home</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background: #444;
+      padding: 12px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .filter {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .category-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 20px;
+    }
+
+    .category-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 250px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px 10px 0 0;
+      object-fit: cover;
+    }
+
+    .category-card h3 {
+      padding: 15px 0;
+    }
+
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>🛍️ My Shop</header>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'handcraft' %}">Handcrafted Jewelry</a>
+    <a href="{% url 'gift' %}">Gifts & Accessories</a>
+    <a href="{% url 'clothing' %}">Clothing</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'signup' %}">Signup</a>
+  </nav>
+
+  <!-- Filter Dropdown -->
+  <div class="filter">
+    <label for="category-select"><strong>Filter Categories:</strong></label>
+    <select id="category-select" onchange="if(this.value) window.location.href=this.value;">
+      <option selected disabled>Select</option>
+      <option value="{% url 'handcraft' %}">Handcrafted Jewelry</option>
+      <option value="{% url 'gift' %}">Gifts & Accessories</option>
+      <option value="{% url 'clothing' %}">Clothing</option>
+    </select>
+  </div>
+
+  <!-- Category List -->
+<div class="category-list">
+  <div class="category-card">
+    <a href="{% url 'handcraft' %}">
+      <img src="/media/products/p1.jpg" alt="Handcrafted Jewelry">
+      <h3>Handcrafted Jewelry</h3>
+    </a>
+  </div>
+
+  <div class="category-card">
+    <a href="{% url 'gift' %}">
+      <img src="/media/products/g2.jpg" alt="Gifts & Accessories">
+      <h3>Gifts & Accessories</h3>
+    </a>
+  </div>
+
+  <div class="category-card">
+    <a href="{% url 'clothing' %}">
+      <img src="/media/products/c2.jpg" alt="Clothing">
+      <h3>Clothing</h3>
+    </a>
+  </div>
+</div>
+  <!-- Footer -->
+  <footer>
+    © 2025 My Shop. All rights reserved.
+  </footer>
+</body>
+</html>

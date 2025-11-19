@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clothing Collection | My Shop</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fafafa;
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      background: #444;
+      padding: 12px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+      color: #111;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 15px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      color: #222;
+    }
+
+    .product-card p {
+      font-weight: bold;
+      color: #009688;
+      margin: 5px 0 10px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .buttons a {
+      padding: 8px 15px;
+      background: #333;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .buttons a:hover {
+      background: #009688;
+    }
+
+    footer {
+      text-align: center;
+      background: #222;
+      color: #fff;
+      padding: 15px;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>👗 Clothing Collection</header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'handcraft' %}">Jewelry</a>
+    <a href="{% url 'gift' %}">Gifts</a>
+    <a href="{% url 'clothing' %}">Clothing</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="{% url 'cart' %}">Cart</a>
+  </nav>
+
+  <!-- Product Section -->
+  <h1>Explore Our Fashion Collection</h1>
+
+  <div class="product-grid">
+    {% for product in products %}
+      <div class="product-card">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+          <img src="{% static 'images/no-image.png' %}" alt="No image available">
+        {% endif %}
+        <h3>{{ product.name }}</h3>
+        <p>₹{{ product.price }}</p>
+       <div class="buttons">
+  <a href="{% url 'product_detail' product.id %}">View</a>
+  {% if user.is_authenticated %}
+    <a href="{% url 'payment' product.id %}">Pay</a>
+  {% else %}
+    <a href="{% url 'login' %}?next={% url 'payment' product.id %}">Pay</a>
+  {% endif %}
+</div>
+
+      </div>
+    {% empty %}
+      <p style="text-align:center; grid-column:1 / -1;">No clothing items available.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Footer -->
+  <footer>© 2025 My Shop. All rights reserved.</footer>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'store/layout.html' %}
+{% load static %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; gap: 40px; padding: 60px 20px; flex-wrap: wrap;">
+
+  <!-- Product Image -->
+  <img src="{{ product.image.url }}"
+       alt="{{ product.name }}"
+       style="width: 300px; height: 300px; border-radius: 10px; object-fit: cover;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+
+  <!-- Product Details -->
+  <div style="max-width: 400px;">
+    <h2 style="margin-bottom: 10px;">{{ product.name }}</h2>
+    <p style="font-size: 18px;"><strong>Price:</strong> ₹{{ product.price }}</p>
+    <p style="margin-top: 10px; line-height: 1.6;">
+      <strong>Description:</strong> {{ product.description }}
+    </p>
+
+    <br>
+
+    <!-- Buy Now Button -->
+    {% if user.is_authenticated %}
+      <a href="{% url 'payment' product.id %}">
+        <button style="background: #4CAF50; color: white; padding: 12px 25px; border: none;
+                       border-radius: 5px; cursor: pointer; font-size: 16px;">
+          Buy Now
+        </button>
+      </a>
+    {% else %}
+      <!-- ✅ Redirect to login with next pointing to payment -->
+      <a href="{% url 'login' %}?next={% url 'payment' product.id %}">
+        <button style="background: #4CAF50; color: white; padding: 12px 25px; border: none;
+                       border-radius: 5px; cursor: pointer; font-size: 16px;">
+          Buy Now
+        </button>
+      </a>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

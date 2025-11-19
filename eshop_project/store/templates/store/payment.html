@@ -1,0 +1,63 @@
+{% extends 'store/layout.html' %}
+{% load static %}
+
+{% block content %}
+  <h2 style="text-align:center; margin-top: 40px;">💳 Complete Your Payment</h2>
+
+  <div style="text-align:center; margin-top:50px;">
+    <button id="rzp-button1"
+            style="background:#4CAF50; color:white; padding:12px 25px; border:none;
+                   border-radius:5px; font-size:16px; cursor:pointer;">
+      Pay ₹{{ product.price }} with Razorpay
+    </button>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var options = {
+        "key": "{{ razorpay_key }}",  // ✅ Public Razorpay key
+        "amount": "{{ amount|default:'10000' }}",  // ✅ Amount in paise
+        "currency": "INR",
+        "name": "My Shop",
+        "description": "Order Payment for {{ product.name }}",
+        "image": "{% static 'images/logo.png' %}",
+        "order_id": "{{ order_id }}",  // ✅ Razorpay order ID from backend
+        "handler": function (response) {
+          // ✅ Send payment data to backend for verification
+          fetch("{% url 'verify_payment' %}", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: new URLSearchParams({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: options.order_id,
+              razorpay_signature: response.razorpay_signature
+            })
+          })
+          .then(res => res.text())
+          .then(data => {
+            alert(data);  // ✅ Show backend response
+            window.location.href = "{% url 'home' %}";
+          });
+        },
+        "prefill": {
+          "name": "{{ user.username|default:'Guest' }}",
+          "email": "{{ user.email|default:'guest@example.com' }}",
+          "contact": "{{ user.profile.phone|default:'9999999999' }}"
+        },
+        "theme": {
+          "color": "#4CAF50"
+        }
+      };
+
+      var rzp1 = new Razorpay(options);
+      document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+      };
+    });
+  </script>
+{% endblock %}
